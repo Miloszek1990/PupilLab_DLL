@@ -81,6 +81,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Program Files\National Instruments\LabVIEW 2018\cintools;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\National Instruments\LabVIEW 2018\cintools;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -134,15 +136,35 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;PUPILLABDLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\oem\Desktop\Machine_Vision\pupid_detection_cpp_modulated\One_image\PupilLab_DLL\PupilLab_DLL;C:\Users\oem\Desktop\Machine_Vision\pupid_detection_cpp_modulated\One_image\PupilLab_DLL\PupilLab_DLL\source;C:\Users\oem\Desktop\Machine_Vision\pupid_detection_cpp_modulated\One_image\PupilLab_DLL\PupilLab_DLL\include;C:\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\Users\oem\Desktop\Machine_Vision\pupid_detection_cpp_modulated\One_image\PupilLab_DLL\PupilLab_DLL;C:\Users\oem\Desktop\Machine_Vision\pupid_detection_cpp_modulated\One_image\PupilLab_DLL\PupilLab_DLL\source;C:\Users\oem\Desktop\Machine_Vision\pupid_detection_cpp_modulated\One_image\PupilLab_DLL\PupilLab_DLL\include;C:\opencv\build\x64\vc14\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world401.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\AdaptiveEdgeDetection.cpp" />
+    <ClCompile Include="source\CircleFit.cpp" />
+    <ClCompile Include="source\DynamicTests.cpp" />
+    <ClCompile Include="source\HaarFBCC.cpp" />
+    <ClCompile Include="source\PartImageAnalysis.cpp" />
+    <ClCompile Include="source\ReturnOfTheKing.cpp" />
+    <ClCompile Include="source\Vizusalization.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\AdaptiveEdgeDetection.h" />
+    <ClInclude Include="include\CircleFit.h" />
+    <ClInclude Include="include\DynamicTests.h" />
+    <ClInclude Include="include\HaarFBCC.h" />
+    <ClInclude Include="include\PartImageAnalysis.h" />
+    <ClInclude Include="include\ReturnOfTheKing.h" />
+    <ClInclude Include="include\Visualization.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
