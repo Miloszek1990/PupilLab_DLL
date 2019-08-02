@@ -148,11 +148,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="source\AdaptiveEdgeDetection.cpp" />
     <ClCompile Include="source\CircleFit.cpp" />
     <ClCompile Include="source\DynamicTests.cpp" />
     <ClCompile Include="source\HaarFBCC.cpp" />
+    <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\PartImageAnalysis.cpp" />
     <ClCompile Include="source\ReturnOfTheKing.cpp" />
     <ClCompile Include="source\Vizusalization.cpp" />
