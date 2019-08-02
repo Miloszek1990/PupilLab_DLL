@@ -47,12 +47,12 @@ extern "C" __declspec(dllexport) char* PupilData(
 	                                             const uint8_t *__arr[], 
 	                                             const uint16_t __img_rows,
 	                                             const uint16_t __img_cols,
-	                                             uint8_t __GB,
-												 uint8_t __AT, 
-												 uint8_t __N_pts,
-												 uint8_t __HorOrVer,
-												 uint16_t __PxBeg,
-												 uint16_t __PxEnd,
+                                                 uint8_t __GB,
+                                                 uint8_t __AT, 
+                                                 uint8_t __N_pts,
+                                                 uint8_t __HorOrVer,
+                                                 uint16_t __PxBeg,
+                                                 uint16_t __PxEnd,
 	                                             uint16_t __lw_pad,
 	                                             uint16_t __rw_pad,
 	                                             uint16_t __tw_pad,
@@ -92,7 +92,6 @@ extern "C" __declspec(dllexport) char* PupilData(
 
 	// === Data control part 1/3 ===
 	DT DynamicTest(_img_mtx, _GB, _AT, _N_pts, _HorOrVer, _PxBegEnd);
-
 	Mat img_mtx                         = DynamicTest.checkImgExists(_img_mtx);
 	int GB                              = DynamicTest.checkOdd(_GB);
 	int AT                              = DynamicTest.checkOdd(_AT);
