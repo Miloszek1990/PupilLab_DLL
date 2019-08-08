@@ -8,11 +8,11 @@
 
 // Own parts
 #include "../include/HaarFBCC.h"
+#include "../include/CascadeFileXML.h"
 
 // === Initialization part ===
-HFBCC::HFBCC(Mat imageBW, string HaarPathXML, vector<int> Paddings, vector<int> img_wh) :
-	imageBW_(imageBW), 
-	HaarPathXML_(HaarPathXML),
+HFBCC::HFBCC(Mat imageBW, vector<int> Paddings, vector<int> img_wh) :
+	imageBW_(imageBW),
 	Paddings_(Paddings),
 	img_wh_(img_wh)
 {}
@@ -21,18 +21,17 @@ HFBCC::~HFBCC()
 {}
 
 // === Detect pupil ===
-vector<int> HFBCC::pupilDetectionHFBCC(Mat imageBW, string HaarPathXML)
+vector<int> HFBCC::pupilDetectionHFBCC(Mat imageBW)
 {
 	Mat img_mtx_BGR;
 	CascadeClassifier pupil_cascade;
 	vector<Rect> pupils;
 	vector<int> pupil;
 
-	//cvtColor(imageBW, img_mtx_BGR, COLOR_GRAY2BGR);
-
-	pupil_cascade.load(HaarPathXML);
-
-	pupil_cascade.detectMultiScale(imageBW, pupils, 1.2, 1, 0 | CASCADE_SCALE_IMAGE, Size(200, 200));
+	String HaarPathXML = BuildXmlFile();
+	FileStorage fs(HaarPathXML, FileStorage::MEMORY);
+	pupil_cascade.read(fs.getFirstTopLevelNode());
+	pupil_cascade.detectMultiScale(imageBW, pupils, 1.2, 1, 0 | CASCADE_SCALE_IMAGE, Size(100, 100), Size(360, 360));
 
 	pupil.push_back(pupils[0].x);
 	pupil.push_back(pupils[0].y);
@@ -52,7 +51,7 @@ vector<int> HFBCC::pupilDetectionHFBCC(Mat imageBW, string HaarPathXML)
 
 vector<int> HFBCC::pupilDetectionHFBCC()
 {
-	return pupilDetectionHFBCC(imageBW_, HaarPathXML_);
+	return pupilDetectionHFBCC(imageBW_);
 }
 
 // === Resize detected pupil only part by paddings ===

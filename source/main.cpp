@@ -22,12 +22,46 @@
 #include "../include/ReturnOfTheKing.h"
 #include "../include/Visualization.h"
 #include "../include/PartImageAnalysis.h"
+#include "../include/CascadeFileXML.h"
 
 using namespace std;
 using namespace cv;
 
 // === Dll entry point ===
-BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
+/*
+// DllMain version of NI supporting team
+BOOL WINAPI DllMain(
+	                HINSTANCE hinstDLL,  // handle to DLL module
+	                DWORD fdwReason,     // reason for calling function
+	                LPVOID lpReserved    // reserved
+                   )
+{
+	// Perform actions based on the reason for calling.
+	switch (fdwReason)
+	{
+		case DLL_PROCESS_ATTACH:
+			// Initialize once for each new process.
+			// Return FALSE to fail DLL load.            
+			break;
+
+		case DLL_THREAD_ATTACH:
+			// Do thread-specific initialization.
+			break;
+
+		case DLL_THREAD_DETACH:
+			// Do thread-specific cleanup.            
+			break;
+
+		case DLL_PROCESS_DETACH:
+			// Perform any necessary cleanup.
+			break;
+	}
+	return TRUE;
+}
+*/
+BOOL APIENTRY DllMain(HANDLE hModule,
+					  DWORD ul_reason_for_call,
+					  LPVOID lpReserved)
 {
 	UNREFERENCED_PARAMETER(hModule);
 	UNREFERENCED_PARAMETER(lpReserved);
@@ -41,27 +75,32 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	}
 	return TRUE;
 }
-
+/*
+// DllMain version 
+BOOL APIENTRY DllMain(HANDLE hModule, 
+                      DWORD ul_reason_for_call, 
+					  LPVOID lpReserved)
+{
+	return TRUE;
+}
+*/
 // === Function to export as DLL ===
 extern "C" __declspec(dllexport) char* PupilData(
-	                                             const uint8_t *__arr[], 
-	                                             const uint16_t __img_rows,
-	                                             const uint16_t __img_cols,
+                                                 const uint8_t *__arr[],
+                                                 const uint16_t __img_rows,
+                                                 const uint16_t __img_cols,
                                                  uint8_t __GB,
                                                  uint8_t __AT, 
-                                                 uint8_t __N_pts,
                                                  uint8_t __HorOrVer,
+                                                 uint16_t __N_pts,
                                                  uint16_t __PxBeg,
                                                  uint16_t __PxEnd,
-	                                             uint16_t __lw_pad,
-	                                             uint16_t __rw_pad,
-	                                             uint16_t __tw_pad,
-	                                             uint16_t __bw_pad
+                                                 uint16_t __lw_pad,
+                                                 uint16_t __rw_pad,
+                                                 uint16_t __tw_pad,
+                                                 uint16_t __bw_pad
                                                 )
 {
-	// === Define the data ===
-	string HaarPathXML                  = "C:\\Users\\oem\\Desktop\\Machine_Vision\\haar\\trained_haars\\data_pos1.35k_neg_2.7k_w16h16\\cascade.xml";
-
 	// === Read the data ===
 	// General
 	int _img_rows                       = (int)__img_rows;
@@ -111,12 +150,12 @@ extern "C" __declspec(dllexport) char* PupilData(
 
 	try {
 		// === Main algorithm ===
-		HFBCC HC(img_mtx, HaarPathXML, Paddings, img_wh);
+		HFBCC HC(img_mtx, Paddings, img_wh);
 		vector<int> detected_pupil      = HC.pupilDetectionHFBCC();
 		vector<int> detected_pupil_pad  = HC.addPad(detected_pupil);
 		Mat img_pup                     = img_mtx(Rect(detected_pupil_pad[0], detected_pupil_pad[1], detected_pupil_pad[2], detected_pupil_pad[3]));
 
-		AED img(img_pup, GB, AT);
+		AED img(img_mtx, GB, AT);
 		vector<Point> contour           = img.getBiggestContour();
 		contour                         = HC.contourShift(contour, detected_pupil_pad[0], detected_pupil_pad[1]);
 
@@ -135,27 +174,26 @@ extern "C" __declspec(dllexport) char* PupilData(
 			int S                       = rint(R_S[1]);
 
 			// Find Contour (FC)
-			PIA FC(contour, detected_pupil_pad, HorOrVer, PxBegEnd[0], PxBegEnd[1]);
+			PIA FC(contour, HorOrVer, PxBegEnd[0], PxBegEnd[1]);
 			vector<Point> contour       = FC.contourFilter();
 
-			ROTK output(1);
+			ROTK output(0);
 			out                         = output.returnCalculated(X, Y, R, S);
 		}
 		else {
-			ROTK output(2);
+			ROTK output(1);
 			out                         = output.returnDefault(tmp_X, tmp_Y, tmp_R, tmp_S);
 		}
-
 	}
 	catch (...) {
-		ROTK output(3);
+		ROTK output(2);
 		out                             = output.returnDefault(tmp_X, tmp_Y, tmp_R, tmp_S);
 	}
 
 	// === Change string to char table and return it as an DLL output ===
-	char* C_pupil_data                  = new char[out.size() + 1];
+	char* C_pupil_data = new char[out.size() + 1];
 	copy(out.begin(), out.end(), C_pupil_data);
-	C_pupil_data[out.size()]            = '\0';
+	C_pupil_data[out.size()] = '\0';
 
 	return C_pupil_data;
 }

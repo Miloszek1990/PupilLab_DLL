@@ -62,5 +62,8 @@
     <ClInclude Include="include\Visualization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\CascadeFileXML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

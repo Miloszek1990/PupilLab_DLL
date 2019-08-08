@@ -7,13 +7,12 @@ class PIA
 {
 	private:
 		vector<Point> edge_pixels_;
-		vector<int> detected_pupil_;
 		int HorOrVer_;
 		int PxBeg_, PxEnd_;
 
 	public:
 		// === Initialization part ===
-		PIA(vector<Point> edge_pixels, vector<int> detected_pupil, int HorOrVer, int PxBeg, int PxEnd);
+		PIA(vector<Point> edge_pixels, int HorOrVer, int PxBeg, int PxEnd);
 		~PIA();
 
 		// === Contour points filtering ===

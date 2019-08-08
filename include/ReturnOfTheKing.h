@@ -17,11 +17,11 @@ STRUCTURE OF RETURNING STRING
 4th   = Pupil radius standard deviation StdR   [px] IMPORTANT: it should be always 4th
 5th   = ...
 ...   = ...
-N-1th = Error status                          [0/1] IMPORTANT: it should be always pre-last
-Nth   = Error reason                            0 - Not defined reason...
-                                                1 - Everything is ok!
-												2 - No closed contours found...
-												3 - other unidentified error... :(
+N-1th = Error status                          [0/1] IMPORTANT: it should be always pre-last -> 0 ok
+Nth   = Error code                             
+                                                0 - Everything is ok!
+												1 - No closed contours found...
+												2 - other unidentified error... :(
 */
 
 class ROTK
@@ -31,8 +31,8 @@ class ROTK
 
 	public:
 		// === Initialization part ===
-		// status = true  (1)  -> it is okay - return obtained values
-		// status = false (0)  -> error - return default value
+		// status = true  (0)  -> it is okay - return obtained values
+		// status = false (1)  -> error - return default value
 		ROTK(int reason);
 		~ROTK();
 

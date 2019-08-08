@@ -7,16 +7,15 @@ class HFBCC
 {
 	private:
 		Mat imageBW_;
-		string HaarPathXML_;
 		vector<int> Paddings_;
 		vector<int> img_wh_;
 
 	public:
-		HFBCC(Mat imageBW, string HaarPathXML, vector<int> Paddings, vector<int> img_wh);
+		HFBCC(Mat imageBW, vector<int> Paddings, vector<int> img_wh);
 		~HFBCC();
 		
 		// === Detect pupil ===
-		vector<int> pupilDetectionHFBCC(Mat imageBW, string HaarPathXML);
+		vector<int> pupilDetectionHFBCC(Mat imageBW);
 		vector<int> pupilDetectionHFBCC();
 
 		// === Resize detected pupil only part by paddings ===

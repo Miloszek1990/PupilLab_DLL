@@ -12,13 +12,11 @@ using namespace std;
 using namespace cv;
 
 // === Initialization part ===
-PIA::PIA(vector<Point> edge_pixels, vector<int> detected_pupil, int HorOrVer, int PxBeg, int PxEnd) :
-	edge_pixels_(edge_pixels), 
-	detected_pupil_(detected_pupil),
+PIA::PIA(vector<Point> edge_pixels, int HorOrVer, int PxBeg, int PxEnd) :
+	edge_pixels_(edge_pixels),
 	HorOrVer_(HorOrVer),
 	PxBeg_(PxBeg),
 	PxEnd_(PxEnd)
-
 {
 }
 

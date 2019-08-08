@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AdaptiveEdgeDetection.h" />
+    <ClInclude Include="include\CascadeFileXML.h" />
     <ClInclude Include="include\CircleFit.h" />
     <ClInclude Include="include\DynamicTests.h" />
     <ClInclude Include="include\HaarFBCC.h" />
