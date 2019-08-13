@@ -6,15 +6,6 @@ static inline std::string BuildXmlFile()
 {
 	std::string xml;
 
-	/*
-	xml =  "<\?xml version=\"1.0\" encoding=\"UTF-8\"\?>\n";
-	xml += "<Device xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n";
-	.
-	.
-	.
-	xml += "</Device>";
-	*/
-
 	xml =  "	<\?xml version=\"1.0\"\?>\n";
 	xml += "	<opencv_storage>\n";
 	xml += "	<cascade>\n";
@@ -347,5 +338,3 @@ static inline std::string BuildXmlFile()
 
 	return xml;
 }
-
-//std::istringstream xml_file(BuildXmlFile());
